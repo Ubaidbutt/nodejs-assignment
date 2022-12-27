@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node app",
+    "test": "jest --forceExit",
+    "test:setup:mongo": "docker-compose -f './test/api/MongoDb/docker-compose.yml' up -d && node ./test/api/MongoDb/mongo-seed.js",
+    "test:stop:docker": "docker-compose -f './test/api/MongoDb/docker-compose.yml' down",
+    "test:start:docker": "npm run test:setup:mongo",
+    "test:api:full": "npm run test:start:docker && npm run test && npm run test:stop:docker"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "supertest": "^6.3.3"
+  }
 }
