@@ -1,11 +1,7 @@
 const { MongoClient } = require('mongodb');
-const config = require('./config/config');
-
-const { dbUrl, dbName } = config;
 
 let db;
-
-async function connect() {
+async function connect({ dbUrl, dbName }) {
     if (!db) {
         db = await MongoClient.connect(dbUrl);
     }
