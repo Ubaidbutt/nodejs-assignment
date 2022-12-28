@@ -4,8 +4,8 @@ const { findVehicles } = require('../controller/vehicle.controller');
 const vehicleRouter = express.Router();
 
 vehicleRouter.get('/', async (req, res) => {
-    const vehicles = await findVehicles(req);
-    return res.status(200).json(vehicles);
+    const resp = await findVehicles(req);
+    return res.status(200).json(resp);
 });
 
 vehicleRouter.get('/:vehicleName', async (req, res) => {
