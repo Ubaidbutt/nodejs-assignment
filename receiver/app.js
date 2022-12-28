@@ -3,12 +3,12 @@ const { addVehicle } = require('../repository/vehicles');
 const { connect } = require('../utilities/database');
 const config = require('./config/config');
 
-const { topic, natServer } = config;
+const { topic, natServer, dbUrl, dbName } = config;
 const vehicleName = topic.split('.')[1];
 
 (async function () {
     try {
-        await connect();
+        await connect({ dbUrl, dbName });
         const nats = NATS.connect({ json: true, servers: [natServer] });
         nats.on('error', (err) => {
             console.error(`Connection with NATS server failed. ${err}`);
