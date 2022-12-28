@@ -49,7 +49,7 @@ const readOutLoud = (vehicleName) => {
 		delivered as a stream of chunks. One chunk is loaded in the buffer, it gets processed, discarded from buffer & then the next chunk
 		is loaded in the buffer & so on and so forth.
 		The benefits of using streams are time and memory efficiency. NodeJS streams are powerful way of file read/write and network communication.
-		We can use async iterators with streams or nodejs provides piping mechanisms where we can pipe an output of one stream as an input
+		We can use async iterators with streams and nodejs provides piping mechanisms where we can pipe an output of one stream as an input
 		to another stream. (Like you have done in this code sample as well)
 	*/
 
@@ -76,13 +76,15 @@ const readOutLoud = (vehicleName) => {
 				setTimeout(() => {
 
 					i++
+					console.log('i: ', i);
 					if ((i % 100) === 0)
 						console.log(`vehicle ${vehicleName} sent have sent ${i} messages`)
 
 					// The first parameter on this function is topics in which data will be broadcasted
 					// it also includes the vehicle name to seggregate data between different vehicle
-
-					nats.publish(`vehicle.${vehicleName}`, obj, cb)
+					setTimeout(() => {
+						nats.publish(`vehicle.${vehicleName}`, obj, cb)
+					}, Math.ceil(Math.random() * 2000)) // To add variable amount of delay in message publishing
 
 				}, Math.ceil(Math.random() * 150))
 			}
@@ -90,7 +92,16 @@ const readOutLoud = (vehicleName) => {
 	// =========================
 	// Question Point 2:
 	// What would happend if it failed to publish to nats or connection to nats is slow?
-	// Maybe you can try to emulate those slow connection
+	/*
+		According to one github issue that I found for NATS DotNet client, we can either catch publish exceptions to see
+		if it because of connection status being closed. If yes, we can block publishing unless we have the connection available.
+
+		Other way to is to continue to retry publishing the message and if the NATS server is closed, the NATS client will try
+		to internally buffer the message which will be sent once the connection is established.
+
+		Reference: https://github.com/nats-io/nats.net/issues/126
+	*/
+	// Maybe you can try to emulate those slow connection (Done)
 	// =========================
 }
 
