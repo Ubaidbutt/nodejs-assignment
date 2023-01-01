@@ -9,7 +9,7 @@
     "test:setup:mongo": "DB_URL=mongodb://localhost:27017 docker-compose -f './test/api/MongoDb/docker-compose.yml' up -d && node ./test/api/MongoDb/mongo-seed.js",
     "test:stop:docker": "docker-compose -f './test/api/MongoDb/docker-compose.yml' down",
     "test:start:docker": "DB_URL=mongodb://localhost:27017 npm run test:setup:mongo",
-    "test:api:full": "npm run test:start:docker && npm run test && npm run test:stop:docker"
+    "test:api:full": "npm run test:start:docker; npm run test; npm run test:stop:docker"
   },
   "keywords": [],
   "author": "",
