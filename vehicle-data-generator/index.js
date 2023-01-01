@@ -76,7 +76,6 @@ const readOutLoud = (vehicleName) => {
 				setTimeout(() => {
 
 					i++
-					console.log('i: ', i);
 					if ((i % 100) === 0)
 						console.log(`vehicle ${vehicleName} sent have sent ${i} messages`)
 

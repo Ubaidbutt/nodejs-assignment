@@ -20,7 +20,6 @@ describe('Web socket server', () => {
         const dummy = { test: 'abc' };
         await db.collection('vehicles').insertOne(dummy);
         client.on('message', data => {
-            console.log('message: ', data);
             expect(data).toEql(dummy);
             client.close();
         });
