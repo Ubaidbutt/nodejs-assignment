@@ -3,11 +3,7 @@ const vehicleRouter = require('./router/vehicle.router');
 const { connect } = require('../utilities/database');
 const config = require('./config/config');
 
-const { dbName, dbUrl } = config;
-
-console.log('app: ', dbName, dbUrl);
-
-const port = 4000;
+const { dbName, dbUrl, port } = config;
 
 const app = express();
 
